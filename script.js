@@ -1,18 +1,21 @@
 const wordEl = document.getElementById('word');
 const wrongLettersEl = document.getElementById('wrong-letters');
 const playAgainBtn = document.getElementById('play-again');
-const popup = document.getElementById('popup-container');
+const popup = document.getElementById('popup-container');//const popup = document.getElementById('popup');
+
 const notification = document.getElementById('notification-center');
 const finalMessage = document.getElementById('final-message');
 
 
 const figureParts = document.querySelectorAll('.figure-part')
 
-const words = ['application', 'programming', 'interface', 'wizard'];
+const words = ['wizard'];
+
+const words2 = ['application', 'programming', 'interface', 'wizard'];
 
 let selectedWord = words[Math.floor(Math.random() * words.length)];
 
-const correctLetters = [];
+const correctLetters = ['w','i','z','a','r','d'];
 
 const wrongLetters = [];
 
@@ -20,13 +23,29 @@ const wrongLetters = [];
 //Show hidden word
 function displayWord(){
     wordEl.innerHTML = `
-    ${selectedWord}
+    ${selectedWord
     .split('')
-    .map(letter => `<span class="letter">${correctLetters.includes(letter) ? letter : ''}</span>
-    `)
+    .map(
+        letter => `
+        <span class="letter">
+        ${correctLetters.includes(letter) ? letter : ''}
+        </span>
+    `
+    )
     .join('')}
     `;
+
+    const innerWord = wordEl.innerText.replace(/\n/g, '');
+    console.log(wordEl.innerText);
+    console.log(innerWord);
+
+    if(innerWord===selectedWord){
+        console.log('match!');
+        finalMessage.innerText = 'Congratulations! You won! 😀';
+        popup.style.display = 'flex';
+
+    }
 }
 
-displayWord
+displayWord();
 
